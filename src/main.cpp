@@ -14,3 +14,4 @@ void loop() {
   float weight = scale.get_units(1);
   Serial.println(String(weight, 2));
 }
+// Test
