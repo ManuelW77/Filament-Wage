@@ -15,6 +15,8 @@ const int buttonTare = D4;
 
 String esp_id = "filwage"; // ESP Name
 
+const int spule = 150.0; //Gewicht Spule in g
+
 const char* ssid = "iApfel";
 const char* password = "druffmann77";
 const char* mqtt_server = "192.168.1.5";
@@ -126,10 +128,13 @@ void loop() {
     //scale.tare();
   }
 
-  float weight = scale.get_units(5)*1000-4447;
+  float weight = scale.get_units(5)*1000-4446-spule;
+  // Nullen der Wage mit ca. Trommelgewicht
+  // Muss auskommentiert werden zum Eichen !!!
+  if (weight < 0) weight = 0;
   int gewicht = weight;
 
-  int laenge = (gewicht-100)/3.0;
+  int laenge = (gewicht)/3.0;
   if (laenge < 0) laenge = 0;
 
   display.setFont(ArialMT_Plain_24);
