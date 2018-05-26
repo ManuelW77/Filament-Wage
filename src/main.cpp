@@ -15,7 +15,8 @@ const int buttonTare = D4;
 
 String esp_id = "filwage"; // ESP Name
 
-const int spule = 150.0; //Gewicht Spule in g
+const int spule = 150; // Gewicht Spule in g !! setze auf 0 zum Eichen !!
+const int ausgleich = 4462 + spule; // Grundgewicht für Eichung
 
 const char* ssid = "iApfel";
 const char* password = "druffmann77";
@@ -128,10 +129,8 @@ void loop() {
     //scale.tare();
   }
 
-  float weight = scale.get_units(5)*1000-4446-spule;
-  // Nullen der Wage mit ca. Trommelgewicht
-  // Muss auskommentiert werden zum Eichen !!!
-  if (weight < 0) weight = 0;
+  float weight = scale.get_units(5)*1000-ausgleich;
+  if (spule > 0 && weight < 0) weight = 0;
   int gewicht = weight;
 
   int laenge = (gewicht)/3.0;
